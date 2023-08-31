@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Viewer</title>
+    <link rel="stylesheet" href="../static/css/dash_style.css">
+</head>
+<body>
+
+<h2>Admins</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Password</th>
+    </tr>
+    {% for admin in admins %}
+    <tr>
+        <td>{{ admin[0] }}</td>
+        <td>{{ admin[1] }}</td>
+        <td>{{ admin[2] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Users</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>Is Approved</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user[0] }}</td>
+        <td>{{ user[1] }}</td>
+        <td>{{ user[2] }}</td>
+        <td>{{ user[3] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/dashboard/">Back</a>
+
+</body>
+</html>

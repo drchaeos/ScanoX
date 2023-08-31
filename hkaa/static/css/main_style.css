@@ -1,0 +1,419 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    max-width: 90%;
+    text-align: center;
+}
+
+.container img {
+    /* width: 70%; */
+    max-width: 200px;  
+    margin: 30px;
+}
+
+/* .arrow-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+.arrow-image {
+    height: 10vw;
+    padding-top: 183px;
+    
+}
+
+
+.scanox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 30px 50px;
+}
+
+.scanox a {
+    text-decoration: none;
+    font-size: 4vw; 
+    color: #000;
+    font-weight: bold;
+}  
+
+.logo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 20px 50px;
+}
+.logo img{
+    width: 18%;
+}
+
+.img-container p {
+    margin-top: -20px;
+    font-weight: bold;
+    font-size: 1.8vw;
+}
+.original {
+    color: blue;
+}
+
+.predicion {
+    color: red;
+}
+
+
+/* #downloadFile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 35px 50px;
+} */
+
+.csv_download {
+    position: absolute;
+    top: calc(50% + 205px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.image_download {
+    position: absolute;
+    top: calc(50% + 150px);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#csvResults {
+    position:fixed;
+    bottom:10px;
+    /* right:10px; */
+    padding: 5px;
+    /* margin-left: 10px; */
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #777;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    }
+
+
+#analyzeButton,
+#resetButton,
+#uploadButton {
+    padding: 6% 8%;
+}
+
+
+
+#statusMessage {
+    position: absolute;
+    top: calc(35% + 0px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#results {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border: 1px solid black;
+    padding: 10px;
+    background-color: white;
+}
+#openPopupButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 35px 50px;
+}
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px 20px 63px 20px;
+    text-align: center;
+    margin-right: 15px;
+}
+#closePopupButton {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+table {
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+}
+
+.tg {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+.tg td{
+    border-color:black;
+    border-style:solid;
+    border-width:1px;
+    font-family:Arial, sans-serif;
+    font-size:20px;
+    overflow:hidden;
+    padding:20px 10px;
+    word-break:normal;
+}
+.tg th{
+    border-color:black;
+    border-style:solid;
+    border-width:1px;
+    font-family:Arial, sans-serif;
+    font-size:20px;
+    font-weight:normal;
+    overflow:hidden;
+    padding:15px 10px;
+    word-break:normal;
+    background: #f5f5f5;
+}
+.tg .tg-c3ow{
+    border-color:inherit;
+    text-align:center;
+    vertical-align:top
+}
+@media (max-width: 1440px) {
+    .csv_download {
+        position: absolute;
+        top: calc(41% + 205px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .image_download {
+        position: absolute;
+        top: calc(41% + 150px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 1135px) {
+    .container img {
+        width: 50%;
+        max-width: 250px;  /* 원래 이미지의 최대 너비 */
+        margin: 30px;
+    }
+    .arrow-image {
+        height: 11vw;
+        padding-top: 140px;
+    }
+    .csv_download {
+        position: absolute;
+        top: calc(43% + 205px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .image_download {
+        position: absolute;
+        top: calc(43% + 150px);
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 820px) {
+    .container {
+        justify-content: center;
+        /* align-items: center; */
+        text-align: center;
+    }
+
+    .container img {
+        width: 50%;
+        max-width: 250px;  /* 원래 이미지의 최대 너비 */
+        margin: 30px;
+    }
+    .scanox a {
+        text-decoration: none;
+        font-size: 33px;
+        color: #000;
+        font-weight: bold;
+    }
+    .logo img{
+        width: 150px;
+    }
+    .csv_download {
+        position: absolute;
+        top: calc(50% + 205px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+    }
+    
+    .image_download {
+        position: absolute;
+        top: calc(50% + 150px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+    }
+}
+
+@media (max-width: 769px) {
+    .container {
+        justify-content: center;
+        /* align-items: center; */
+        text-align: center;
+    }
+
+    .container img {
+        width: 50%;
+        max-width: 250px;  /* 원래 이미지의 최대 너비 */
+        margin: 30px;
+    }
+    .scanox a {
+        text-decoration: none;
+        font-size: 33px;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .arrow-image {
+        height: 8vw;
+        padding-top: 120px;
+    }
+    .logo img{
+        width: 150px;
+    }
+    .csv_download {
+        position: absolute;
+        top: calc(50% + 205px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+    }
+    
+    .image_download {
+        position: absolute;
+        top: calc(50% + 150px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+    }
+}
+
+@media (max-width: 769px) {
+    .container {
+        justify-content: center;
+        /* align-items: center; */
+        text-align: center;
+    }
+
+    .container img {
+        width: 50%;
+        max-width: 250px;  /* 원래 이미지의 최대 너비 */
+        margin: 30px;
+    }
+    .scanox a {
+        text-decoration: none;
+        font-size: 33px;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .arrow-image {
+        height: 8vw;
+        padding-top: 110px;
+    }
+    .logo img{
+        width: 150px;
+    }
+    .csv_download {
+        position: absolute;
+        top: calc(50% + 205px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+    }
+    
+    .image_download {
+        position: absolute;
+        top: calc(50% + 150px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+    }
+}
+
+@media (max-width: 416px) {
+    .container {
+        justify-content: center;
+        /* align-items: center; */
+        text-align: center;
+    }
+
+    .container img {
+        width: 50%;
+        max-width: 250px;  /* 원래 이미지의 최대 너비 */
+        margin: 30px;
+    }
+    .scanox a {
+        text-decoration: none;
+        font-size: 33px;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .arrow-image {
+        height: 8vw;
+        padding-top: 110px;
+    }
+    .logo img{
+        width: 150px;
+    }
+    .csv_download {
+        position: absolute;
+        top: calc(50% + 205px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+    }
+    
+    .image_download {
+        position: absolute;
+        top: calc(50% + 150px);
+        left: 50%;
+        transform: translateX(-50%);
+        width: 150px;
+        padding: 1% 1%;
+    }
+    #statusMessage {
+        position: absolute;
+        top: calc(35% + 120px);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+    }
+}

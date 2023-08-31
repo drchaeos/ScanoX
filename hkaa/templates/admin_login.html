@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="../static/css/login_style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h3>ScanoX Admin Login</h3>
+        <form action="/admin/" method="post">
+            <input type="text" id="username" name="username" placeholder="ID" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>     
+            <br>
+            <input id="adminlogin" type="submit" value="Login">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.getElementsByTagName('form')[0];
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/admin/', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.detail === 'login_failed') {
+                        alert('로그인 실패: 아이디나 비밀번호가 올바르지 않습니다.');
+                    } else if (response.detail === 'login_successful') {
+                        window.location.href = '/dashboard/';
+                    }
+                }
+            };
+                xhr.send('username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password));
+            });
+        });
+    </script>
+    
+    
+</body>
+</html>

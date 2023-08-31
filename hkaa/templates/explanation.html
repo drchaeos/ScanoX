@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScanoX User Guideline</title>
+    <link rel="stylesheet" href="/static/css/explan_style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>ScanoX Description</h2>
+        <p>Our platform focuses on measuring the Hip-Knee-Ankle (HKA) angle, which is an index for diagnosing knock-knees (genu valgum) or bow legs (genu varum).</p>
+        <p style="text-align: center;">
+            <img src="../images/original_image.jpg" alt="Input X-Ray" width="200"> <img src="../images/prediction_image.jpg" alt="Result X-Ray" width="200">
+        </p>
+        <p>Using the CNN algorithm, ScanoX provides predictions of HKA angle to assist professional doctors in diagnosing lower extremity deformity.</p>
+        <hr>
+        <h2>ScanoX User Guideline</h2>
+        <h3>1. Image Upload</h3>
+        <ol>
+            <li>분석 화면 웹 페이지 상단에 위치한 <strong>Image Upload</strong> 버튼을 클릭합니다.</li>
+            <li>팝업된 창에서 분석하고자 하는 <strong>Scanogram X-Ray</strong> 영상 이미지를 선택합니다.</li>
+            <li>이미지가 선택되면 웹 페이지의 좌측 Box에 미리보기가 표시됩니다.</li>
+        </ol>
+        
+        <h3>2. Analysis</h3>
+        <ol>
+            <li><strong>Image Upload</strong> 과정이 끝났으면, <strong>Analysis</strong> 버튼을 클릭합니다.</li>
+            <li>분석이 시작되면 화살표 상단에 <strong>Analyzing</strong>이 표시되고 <strong>Analysis Completed</strong>가 나올 때까지 기다립니다.</li>
+        </ol>
+        
+        <h3>3. Result</h3>
+        <ol>
+            <li>분석이 완료되면 웹 페이지 우측 Box에 예측 결과 이미지가 표시됩니다.</li>
+            <li>중앙 하단에 <strong>HKA (Hip-Knee-Ankle) Angle</strong>이 표시됩니다.</li>
+            <li>결과 데이터가 필요한 경우, <strong>Result CSV Download</strong> 및 <strong>Analysis Image Download</strong> 버튼을 통해 각도 결과가 담긴 CSV 데이터와 결과 이미지 데이터를 다운받을 수 있습니다.</li>
+        </ol>
+
+        <h3>4. Reset</h3>
+        <ol>
+            <li>분석을 다시 시작하거나 다른 영상 이미지를 선택하려면  <strong>Reset</strong> 버튼을 클릭합니다. 이 버튼을 클릭하면 분석화면 웹 페이지가 초기 상태로 돌아갑니다.</li>
+        </ol>
+        <br>
+        <button onclick="window.location.href='/main'">분석 화면으로 이동</button>
+        <a href="#">
+            <img id="down_button" src="../images/down_arrow.png" alt="">
+        </a>
+    </div>
+
+    <script>
+            // 버튼 하단 이동
+    var imageElement = document.getElementById("down_button");
+
+function scrollToBottom(event) {
+event.preventDefault(); 
+window.scrollTo(0, document.body.scrollHeight);
+}
+
+imageElement.addEventListener("click", scrollToBottom);
+    </script>
+</body>
+
+</html>

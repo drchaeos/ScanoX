@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScanoX</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/main_style.css">
+</head>
+<body>
+    <div class="scanox">
+        <a href="/">ScanoX</a>
+    </div>
+    <div class="logo">
+        <img src="../images/walk101_logo.png" alt="logo">
+    </div>
+    
+    <div class="upload">
+        <input type="file" id="imageInput" style="display: none;" accept="image/*">
+        <div id="statusMessage"></div>
+        <a href="#" id="downloadCsv" class="csv_download" style="display: none;">
+            <button>Result CSV Download</button>
+        </a>
+        <a href="/" id="downloadAnalyzedImage" class="image_download" download style="display: none;">
+            <button>Analysis Image Download</button>
+        </a>
+    </div>
+    <div class="container">
+        <div class="img-container">
+            <button id="uploadButton" onclick="openImageUploader()">Image Upload</button>
+            <div id="uploadedImageContainer">
+                <img src="/images/box1.png" id="virtualUploadImage" class="virtual-image">
+            </div>
+            <p class="original">Original Image</p>
+        </div>
+        <div class="arrow-container">
+            <button id="analyzeButton" onclick="analyzeAndUploadImage()">Analysis</button>
+            <img src="/images/arrow-icon.png" class="arrow-image">
+        </div>
+        
+        <div class="img-container">
+            <button id="resetButton" onclick="resetImage()">Reset</button>
+            <div id="resultImage">
+                <img src="/images/box1.png" id="virtualResultImage" class="virtual-image">
+            </div>
+            <p class="predicion">Prediction Image</p>
+        </div>
+    </div>
+    <button id="openPopupButton">Instructional Video</button>
+        <div id="videoPopup" class="popup">
+            <iframe width="560" height="315" src="https://drive.google.com/file/d/1v3Nbk2cV4bDFO471WRUagFhGTBzMFSy3/preview" title="YInstructional Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <button id="closePopupButton">Close</button>
+    </div>
+    <div id="csvResults">
+        <table class="tg">
+            <thead>
+              <tr>
+                <th class="tg-c3ow" colspan="2">HKA (Hip-Knee-Ankle) Angle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="tg-c3ow">Right<br><br>degree</td>
+                <td class="tg-c3ow">Left<br><br>degree</td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+                // 이미지 업로드 인풋을 클릭하는 함수
+        function openImageUploader() {
+            document.getElementById('imageInput').click();
+        }
+        // 이미지 인풋의 변화를 감지하고, 업로드된 이미지를 미리보기로 표시
+        document.getElementById('imageInput').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const imageContainer = document.getElementById('uploadedImageContainer');
+                    imageContainer.innerHTML = `<img src="${event.target.result}" alt="Uploaded Image" width="200">`;
+
+                    const imageNameWithoutExtension = file.name.replaceAll('.jpg', '');
+                    document.getElementById('downloadAnalyzedImage').href = "/out/result_" + file.name;
+                    document.getElementById('downloadCsv').href = "/out/HKAA_result_" + imageNameWithoutExtension + ".csv";
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+
+
+        document.getElementById('imageInput').addEventListener('change', function() {
+            // 이미지 선택 후 서버에 폴더 내용 삭제 요청
+            const selectedImageName = this.files[0].name;
+            fetch(`/delete_folders_content/${selectedImageName}`)
+                .then(response => response.json())
+                .then(data => console.log(data.message))
+                .catch(error => console.error('Error:', error));
+        });
+
+
+
+            //사용자가 이미지를 업로드하고 '분석' 버튼을 클릭했을 때 호출되는 함수
+            function analyzeAndUploadImage() {
+                document.getElementById("statusMessage").innerText = "Analyzing...";
+                // 사용자가 선택한 이미지를 가져옴
+                const inputElement = document.getElementById('imageInput');
+                const file = inputElement.files[0];
+                // FormData 객체를 생성하고 이미지를 추가
+                const formData = new FormData();
+                formData.append('image', file);
+                
+                // 이미지를 서버로 전송하고 분석 결과를 요청
+                fetch('/upload_and_analyze/', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+
+                    if (data.data) {
+                        document.getElementById("statusMessage").innerText = "Analysis Completed";
+                        // 분석된 이미지를 웹 페이지에 표시
+                        const resultImageContainer = document.getElementById('resultImage');
+                        // 변환된 이미지의 경로 설정
+                        const convertedImagePath = `/out/result_${file.name}`;
+                        
+                        resultImageContainer.innerHTML = `<img src="${convertedImagePath}" alt="Analyzed Image" width="200">`;
+
+                        const fileNameWithoutExtension = file.name.replace('.jpg', '');
+                        const csvPath = `/out/HKAA_result_${fileNameWithoutExtension}.csv`;
+                        document.getElementById('downloadCsv').href = csvPath;
+                        document.getElementById('downloadCsv').style.display = 'block';
+
+
+                        
+            // 분석된 CSV 결과를 웹 페이지에 표시
+            let table = "<table class='tg'>";
+            table += "<thead><tr><th class='tg-c3ow' colspan='2'>HKA (Hip-Knee-Ankle) Angle</th></tr></thead>";
+            table += "<tbody>";
+            data.data.forEach(row => {
+                table += "<tr>";
+                table += `<td class='tg-c3ow'>Right<br><br><span style="color:red;">${row['Right']}</span> <br>degree</td>`;
+                table += `<td class='tg-c3ow'>Left<br><br><span style="color:red;">${row['Left']}</span> <br>degree</td>`;
+                table += "</tr>";
+            });
+            table += "</tbody>";
+            table += "</table>";
+
+            document.getElementById('csvResults').innerHTML = table;
+
+                // 분석이 완료되면 이미지 다운로드 버튼 활성화
+                const downloadButton = document.getElementById('downloadAnalyzedImage');
+                downloadButton.href = "/out/result_" + file.name;
+                downloadButton.style.display = 'block';
+
+                // 분석이 완료되면 CSV 다운로드 버튼 활성화
+                const downloadCsvButton = document.getElementById('downloadCsv');
+                downloadCsvButton.href = `/out/HKAA_result_${fileNameWithoutExtension}.csv`;
+                downloadCsvButton.style.display = 'block';
+            
+            
+                }
+            });
+        }
+        
+        
+        // 업로드한 이미지를 리셋하는 함수
+        function resetImage() {
+            location.reload();
+        }
+
+        const openPopupButton = document.getElementById("openPopupButton");
+        const closePopupButton = document.getElementById("closePopupButton");
+        const videoPopup = document.getElementById("videoPopup");
+
+        openPopupButton.addEventListener("click", () => {
+        videoPopup.style.display = "block";
+        });
+
+        closePopupButton.addEventListener("click", () => {
+        videoPopup.style.display = "none";
+        });
+
+
+
+    </script>
+
+</body>
+</html>
