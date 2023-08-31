@@ -1,3 +1,3 @@
 # ScanoX
 
-##### Server Uploading..
+### Server Uploading..
