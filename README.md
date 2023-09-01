@@ -1,3 +1,3 @@
 # ScanoX
 
-### Server Uploading..
+### 3.35.105.235:9000
