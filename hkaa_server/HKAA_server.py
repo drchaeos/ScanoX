@@ -39,34 +39,9 @@ from email.mime.multipart import MIMEMultipart
 
 import subprocess
 
+# FastAPI 애플리케이션 인스턴스를 생성
 app = FastAPI()
 security = HTTPBasic()
-
-def send_email(to_email, subject, message):
-    # 이메일 서버 설정
-    smtp_server = "smtp.gmail.com"
-    smtp_port = 587
-    smtp_username = "va.e8000@gmail.com"
-    smtp_password = "qtmjltrljdycazso"
-
-    # 이메일 메시지 설정
-    from_email = smtp_username
-    msg = MIMEMultipart()
-    msg['From'] = from_email
-    msg['To'] = to_email
-    msg['Subject'] = subject
-    msg.attach(MIMEText(message, 'plain'))
-
-    # 이메일 서버에 연결하고 이메일 보내기
-    try:
-        server = smtplib.SMTP(smtp_server, smtp_port)
-        server.starttls()
-        server.login(smtp_username, smtp_password)
-        server.sendmail(from_email, to_email, msg.as_string())
-        server.close()
-        print("Email sent successfully")
-    except Exception as e:
-        print("Failed to send email:", e)
 
 # 디렉터리 및 파일 경로
 UPLOAD_DIR = "./test_imgs"
