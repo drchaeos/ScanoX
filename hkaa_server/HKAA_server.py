@@ -173,12 +173,6 @@ async def signup(request: Request, username: str = Form(...), password: str = Fo
     conn.commit()
     conn.close()
 
-    # 회원가입이 성공하면 관리자에게 이메일 보내기
-    to_email = "va.e8000@gmail.com"
-    subject = "New user registration"
-    message = f"새 사용자가 등록되었습니다: {username, email, organization}"
-    send_email(to_email, subject, message)
-
     return RedirectResponse(url="/", status_code=303)
 
 
